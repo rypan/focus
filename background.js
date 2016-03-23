@@ -4,7 +4,7 @@ myBlockedURLs = {urls: [
   "*://www.ignore-this-domain.com/*"
 ]};
 
-var initiatlizeExtension = function (){
+var initializeExtension = function (){
   // Initialize Array
   console.log("Starting Up!");
 
@@ -67,8 +67,8 @@ var initiatlizeExtension = function (){
 
 var addToBlockedList = function(){
   console.log("Background Refresh for Blocked List")
-  initiatlizeExtension();
-  
+  initializeExtension();
+
   chrome.webRequest.onBeforeRequest.addListener(
         onBeforeRequestCallback,
         myBlockedURLs,
@@ -124,4 +124,4 @@ chrome.runtime.onMessage.addListener(
   }
 )
 
-initiatlizeExtension();
+initializeExtension();
