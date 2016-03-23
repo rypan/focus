@@ -65,10 +65,6 @@ var initiatlizeExtension = function (){
 
 }
 
-var cryWolf = function (){
-  console.log("Crying wolf...");
-}
-
 var addToBlockedList = function(){
   console.log("Background Refresh for Blocked List")
   initiatlizeExtension();
