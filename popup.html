@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Focus</title>
+    <style>
+      body {
+        min-width: 200px;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: lighter;
+      }
+
+      #header{
+        height: 50px;
+        padding: 5px 20px 0px 10px;
+        border-bottom: solid 1px #ddd;
+
+      }
+
+      #focus{
+        float:left;
+        width: 100px;
+        color: #4A4A4A;
+        font-size: 30px;
+      }
+
+      #close{
+        float:right;
+        font-weight: normal;
+        color: #bbb;
+        cursor: pointer; cursor: hand;
+      }
+
+      #toggle{
+        border-bottom: solid 1px #ddd;
+        padding: 10px;
+        height: 30px;
+      }
+
+      #on{
+        width: 48%;
+        padding: 5px 0px 5px 0px;
+        float: left;
+        text-align: center;
+        margin-right: 2px;
+        cursor: pointer; cursor: hand;
+      }
+      
+      #off{
+        width: 48%;
+        padding: 5px 0px 5px 0px;
+        float: left;
+        text-align: center;
+        cursor: pointer; cursor: hand;
+      }
+
+      .active{
+        color: #fff;
+        background-image: -o-linear-gradient(-90deg, #40A6FC 0%, #2D83E3 100%);
+        background-image: -moz-linear-gradient(-90deg, #40A6FC 0%, #2D83E3 100%);
+        background-image: -webkit-linear-gradient(-90deg, #40A6FC 0%, #2D83E3 100%);
+        background-image: -ms-linear-gradient(-90deg, #40A6FC 0%, #2D83E3 100%);
+        background-image: linear-gradient(-180deg, #40A6FC 0%, #2D83E3 100%);
+      }
+
+      .inactive{
+        background-color: #ddd;
+      }
+
+      .delete{
+        margin-left: 10px;
+        display: none;
+        cursor: pointer; cursor: hand;
+      }
+
+      #urls{
+        padding: 10px;
+        height: 30px;
+      }
+
+      #txtURL{
+        height: 30px;
+        border: solid 1px #fff;
+        font-size: 20px;
+        font-weight: lighter;
+      }
+
+      #txtURL:focus{
+        border: solid 1px #40A6FC;
+        outline: none;
+      }
+
+      #thickBar{
+        border-bottom: solid 4px #EEE;
+      }
+
+      #listOfURLs ul{
+        list-style: none;
+        padding: 0px;
+        font-size: 14px;
+        line-height: 2em;
+      }
+
+      #listOfURLs li{
+        padding-left: 5px;
+        border-bottom: solid 1px #EEE;
+      }
+
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
+     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="focus">Focus</div>
+      <div id="close">x</div>
+    </div>
+    <div id="toggle">
+      <div id="on">on</div>
+      <div id="off">off</div>
+    </div>
+
+    <div id="urls">
+      <input type="text" name="txtURL" id="txtURL" placeholder="Type URL to block">
+      <div id="listOfURLs"></div>
+    </div>
+
+  </body>
+</html>
