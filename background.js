@@ -75,10 +75,6 @@ var addToBlockedList = function(){
         ["blocking"]);
 }
 
-chrome.extension.onRequest.addListener(
-  function(request, sender, sendResponse){
-    if(request.msg == 'startFunc') cryWolf();
-  });
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse){

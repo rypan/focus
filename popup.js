@@ -28,17 +28,17 @@ function addURL(){
         // Business as usual
 
         chrome.storage.sync.get("urlStore", function(results){
-      
+
           console.log("Value of sync.get -->")
           console.log(results.urlStore);
           returnedArray = results.urlStore;
-          
+
           console.log("Value of PassedURL --> " + passedURL);
           returnedArray.push(passedURL)
-          
+
           console.log("Value of PassedURL after Push --> ");
           console.log(returnedArray);
-          
+
           chrome.storage.sync.set({"urlStore": returnedArray},function(){
             console.log("Value sync'd back");
           })
@@ -56,7 +56,7 @@ function addURL(){
 
       }
     })
-  }  
+  }
 }
 
 // Delete URL
@@ -194,11 +194,3 @@ function closePopUp(){
   console.log("Close Pop-Up");
   window.close();
 }
-
-// Example Function to Background.js
-function cryWolf(){
-  chrome.extension.sendRequest({
-    msg: "startFunc"
-  })
-}
-
