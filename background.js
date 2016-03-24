@@ -98,10 +98,14 @@ var formatBlackList = function(blob){
 
 var createBlackList = function(blob){
   var i = 0;
+
+  myBlockedURLs.urls = [];
   for (i=0; i<blob.length;i++){
-    myBlockedURLs.urls[i] = blob[i];
+    myBlockedURLs.urls.push(blob[i]);
     console.log("Blocked URL --> " + myBlockedURLs.urls[i]);
   }
+
+
 //  console.log("Black List -->");
 //  console.log(myBlockedURLs);
   return myBlockedURLs;
