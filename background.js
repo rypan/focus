@@ -66,7 +66,8 @@ var initializeExtension = function (){
 }
 
 var addToBlockedList = function(){
-  console.log("Background Refresh for Blocked List")
+  console.log("Background Refresh for Blocked List!")
+
   initializeExtension();
 
   chrome.webRequest.onBeforeRequest.addListener(
