@@ -49,15 +49,39 @@ var initializeExtension = function (){
 
   chrome.storage.sync.get("toggle", function(results){
 
+    console.log("Initialized()")
+    console.log(results.toggle)
+
     if (results.toggle === undefined){
 
       chrome.storage.sync.set({"toggle": true},function(){
         console.log("Toggle Initialized to FALSE");
       })
 
-    } else {
+    } else if (results.toggle == false) {
 
-      // Business as usual
+      console.log("Trigger Blocked URLs on Start")
+
+      if (chrome.webRequest.onBeforeRequest.hasListener(onBeforeRequestCallback)){
+
+      } else {
+
+        chrome.webRequest.onBeforeRequest.removeListener(onBeforeRequestCallback);
+
+        chrome.storage.sync.get("urlStore", function(results){
+          console.log("Retrieved urlStore -->");
+          console.log(results.urlStore);
+          createBlackList(formatBlackList(results.urlStore));
+
+          chrome.webRequest.onBeforeRequest.addListener(
+                onBeforeRequestCallback,
+                myBlockedURLs,
+                ["blocking"]);
+
+          console.log("Triggered")
+        });
+
+      }
 
     }
 
@@ -66,14 +90,30 @@ var initializeExtension = function (){
 }
 
 var addToBlockedList = function(){
-  console.log("Background Refresh for Blocked List!")
+  console.log("Refresh for Blocked List!")
 
-  initializeExtension();
+  if (chrome.webRequest.onBeforeRequest.hasListener(onBeforeRequestCallback)){
 
-  chrome.webRequest.onBeforeRequest.addListener(
-        onBeforeRequestCallback,
-        myBlockedURLs,
-        ["blocking"]);
+      chrome.webRequest.onBeforeRequest.removeListener(onBeforeRequestCallback);
+
+      chrome.storage.sync.get("urlStore", function(results){
+        console.log("Retrieved urlStore -->");
+        console.log(results.urlStore);
+        createBlackList(formatBlackList(results.urlStore));
+
+        chrome.webRequest.onBeforeRequest.addListener(
+              onBeforeRequestCallback,
+              myBlockedURLs,
+              ["blocking"]);
+
+        console.log("Triggered")
+      });
+
+  } else {
+
+  }
+
+
 }
 
 
@@ -99,7 +139,7 @@ var createBlackList = function(blob){
   myBlockedURLs.urls = [];
   for (i=0; i<blob.length;i++){
     myBlockedURLs.urls.push(blob[i]);
-    console.log("Blocked URL --> " + myBlockedURLs.urls[i]);
+    // console.log("Blocked URL --> " + myBlockedURLs.urls[i]);
   }
 
 
@@ -114,11 +154,22 @@ chrome.runtime.onMessage.addListener(
   function(request,sender,sendResponse){
     if(request.t){
       console.log("Focus - Toggled On");
+
+      chrome.storage.sync.get("urlStore", function(results){
+        createBlackList(formatBlackList(results.urlStore));
+      });
+
       chrome.webRequest.onBeforeRequest.addListener(
         onBeforeRequestCallback,
         myBlockedURLs,
         ["blocking"]);
+
     }else{
+
+      chrome.storage.sync.get("urlStore", function(results){
+        createBlackList(formatBlackList(results.urlStore));
+      });
+
       chrome.webRequest.onBeforeRequest.removeListener(onBeforeRequestCallback);
       console.log("Focus - Toggled Off");
     }

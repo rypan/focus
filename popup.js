@@ -78,22 +78,7 @@ function deleteURL(index,url){
       refreshNodes();
 
       // Update what extension blocks
-      // chrome.extension.sendRequest({msg:"addToBlockedList"});
-
-
-      chrome.storage.sync.get("toggle", function(results){
-
-      toggle = results.toggle;
-
-        if(toggle){
-          console.log("t:true");
-          chrome.runtime.sendMessage({t:true});
-        }else{
-          console.log("t:false");
-          chrome.runtime.sendMessage({t:false});
-        }
-
-      });
+      chrome.extension.sendRequest({msg:"addToBlockedList"});
 
 
     })
